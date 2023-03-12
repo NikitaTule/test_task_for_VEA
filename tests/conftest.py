@@ -1,4 +1,3 @@
-
 from selenium.webdriver.chrome import webdriver
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -10,11 +9,11 @@ from selenium.webdriver import ChromeOptions
 from datetime import datetime
 from my_config import MY_ABSOLUTE_PATH_TO_THE_SCREENSHOT_FILE
 
+
 # “function”-один раз для тестового метода
 # “class”-один раз для класса
 # “module”-один раз для модуля
 # “session”-один раз для всех тестов, запущенных в данной сессии
-
 
 
 @pytest.fixture
@@ -22,7 +21,7 @@ def chrome_options():
     """ Опции для хрома """
     options_chrome = ChromeOptions()
     options_chrome.add_experimental_option('excludeSwitches', ['enable-logging'])
-    options_chrome.add_argument('--headless')
+    # options_chrome.add_argument('--headless')
     options_chrome.add_argument('--no-sandbox')
     options_chrome.add_argument('--log-level=SEVERE')
     return options_chrome
@@ -72,11 +71,9 @@ def driver_init(request, chrome_options, firefox_options):
         name_test = request.function.__name__
         all_name = driver_name + "_" + name_test + current_date_and_time()
         name_screenshot = all_name.replace(" ", "")
-        """ Необходимо указать собственный абсолютный путь к файлу со скриншотами """
+        """ Необходимо указать собственный абсолютный путь к файлу со скриншотами и удалить 10 строку импорта """
         driver.save_screenshot(f'{MY_ABSOLUTE_PATH_TO_THE_SCREENSHOT_FILE}\\{name_screenshot}' + '.png')
         print(f'Текущий URL => {driver.current_url}' == "url")
         driver.quit()
     driver.quit()
     print(f"\nquit browser..{driver_name}")
-
-
